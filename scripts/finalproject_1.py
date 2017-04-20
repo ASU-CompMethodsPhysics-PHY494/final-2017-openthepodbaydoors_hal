@@ -83,16 +83,24 @@ initial_northbound_position = x
 initial_eastbound_position = y
 print('initial north pos ' , initial_northbound_position)
 print('initial east pos ' , initial_eastbound_position)
-start_point = ([x, y])
-print('start point ', start_point)
-locations = []
-locations.append(start_point)
-print('locations array ', locations)
+
+start_point_northbound = ([x])
+print('start point northbound', start_point_northbound)
+locations_north = []
+locations_north.append(start_point_northbound)
+print('locations north array ', locations_north)
+
+start_point_eastbound = ([y])
+print('start point eastbound', start_point_eastbound)
+locations_east = []
+locations_east.append(start_point_eastbound)
+print('locations east array ', locations_east)
 
 #working on defining motion for north car
 for i in range(5):
     new_north_coord = car_step_moves(initial_northbound_position, 100)
     initial_northbound_position = new_north_coord
+    locations_north.append([new_north_coord])
     #print('new_north_coord ', new_north_coord)
 
     
@@ -100,13 +108,12 @@ for i in range(5):
 for i in range(5):
     new_east_coord = car_step_moves(initial_eastbound_position, 100)
     initial_eastbound_position = new_east_coord
+    locations_east.append([new_east_coord])
     #print('new_east_coord ', new_east_coord)
     
-new_point = ([new_north_coord, new_east_coord])
-locations.append(new_point)
+print('locations north array ', locations_north)
+print('locations east array ', locations_east)  
 
-   
-print('locations array updated ', locations)
 
 
 
