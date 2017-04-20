@@ -6,11 +6,7 @@ Created on Thu Apr 13 12:26:35 2017
 """
 import numpy as np
 import random
-#import time
-#import os
-#import pandas as pd
-#import matplotlib.pyplot as plt
-#import seaborn as sns
+
 
 """
 #this is attempt at car position
