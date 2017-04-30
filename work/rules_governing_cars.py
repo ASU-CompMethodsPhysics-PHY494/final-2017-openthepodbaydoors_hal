@@ -52,13 +52,71 @@ def initial_grid(d = 4):
                     car_position[i,y[m],2] = random.randint(0,d)
     return car_position
     
-    
+
 d = 4
 
-def movement():
-    #taking care of the movement problem
-    return None
+def car_loop_x( point, point_max_value, i ):
     
+    #attempt at making function that moves car values no further than
+    #grid size and loops around to zero when at edge
+    x,y = road(grid)
+    number_of_cars = initial_grid()    
+    for n in number_of_cars[i]:
+        if number_of_cars[i] == 15:
+            return number_of_cars[0]
+    return number_of_cars 
+"""
+def east_movement(starting_step, next_step):
+    #taking care of the movement problem
+    #should take initial placement func and spit out step moves
+    x,y = road(grid)
+    print("x", x)
+    print("y", y)
+    number_of_cars = initial_grid()
+    print("number of cars", number_of_cars)
+    for n in range(len(x)):
+            print("len(x)", len(x))
+            for j in range(len(grid)):
+                print("len(grid)", len(grid))
+                starting_step = number_of_cars[x[n],j,k]
+                if number_of_cars[x[n],j+1,k] < d:
+                    starting_step = d-number_of_cars[x[n],j+1,k]
+                    number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k] 
+                    number_of_cars[x[n],j,k] = 0
+                else:
+                    number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k] + (number_of_cars[x[n],j+1,k]-d)
+                    number_of_cars[x[n],j+1,k] = d
+    return number_of_cars
+    
+    
+    for i in number_of_cars[i,j,k]:
+        starting_step = initial_grid()
+        next_step_east = starting_step[i+1,j,k,1]
+    return next_step_east
+"""
+    
+"""    
+def north_movement(starting_step, next_step):
+    #taking care of the movement problem
+    #should take initial placement func and spit out step moves
+    for i in car_position[i,j,1]:
+        starting_step = initial_grid()
+    return next_step_north    
+    
+def south_movement(starting_step, next_step):
+    #taking care of the movement problem
+    #should take initial placement func and spit out step moves
+    for i in car_position[i,j,2]:
+        starting_step = initial_grid()
+    return next_step_south
+
+def west_movement(starting_step, next_step):
+    #taking care of the movement problem
+    #should take initial placement func and spit out step moves
+    for i in car_position[i,j,3]:
+        starting_step = initial_grid()
+    return next_step_west
+"""    
     
 def simulation():
     #attempt at simulating movement of our cars outside intersections
@@ -69,12 +127,22 @@ def simulation():
             print("len(x)", len(x))
             for j in range(len(grid)):
                 print("len(grid)", len(grid))
-                if number_of_cars[x[n],j,k] <= (d-number_of_cars[x[n],j+1,k]):
-                    number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k] 
+                if number_of_cars[x[n],j+1,k] == 0:
+                    number_of_cars[x[n],j+1,k] = number_of_cars[x[n],j,k]
                     number_of_cars[x[n],j,k] = 0
+                if number_of_cars[x[n],j+1,k] == d:
+                    number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k]
                 else:
-                    number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k] + (number_of_cars[x[n],j+1,k]-d)
-                    number_of_cars[x[n],j+1,k] = d
+                    if number_of_cars[x[n],j+1,k] > 0 and number_of_cars[x[n],j+1,k] < d:
+                        if (number_of_cars[x[n],j,k]) + (number_of_cars[x[n],j,k]) <= d:
+                            number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k]
+                            number_of_cars[x[n],j,k] = 0
+                        else:
+                            enroute = 0
+                            enroute = (d - number_of_cars[x[n],j+1,k])
+                            number_of_cars[x[n],j+1,k] += enroute
+                            number_of_cars[x[n],j,k] -= enroute
     return number_of_cars
+    
 beep = simulation()
-print(beep)
+print("beep", beep)
