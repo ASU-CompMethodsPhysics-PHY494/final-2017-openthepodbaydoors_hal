@@ -117,32 +117,44 @@ def west_movement(starting_step, next_step):
         starting_step = initial_grid()
     return next_step_west
 """    
-    
+x,y = road(grid)
+number_of_cars = initial_grid()    
+
 def simulation():
     #attempt at simulating movement of our cars outside intersections
-    x,y = road(grid)
-    number_of_cars = initial_grid()
+    #have conditions that I think will work moves even if we change d. 
     for k in range(3):
         for n in range(len(x)):
             print("len(x)", len(x))
             for j in range(len(grid)):
                 print("len(grid)", len(grid))
-                if number_of_cars[x[n],j+1,k] == 0:
-                    number_of_cars[x[n],j+1,k] = number_of_cars[x[n],j,k]
-                    number_of_cars[x[n],j,k] = 0
-                if number_of_cars[x[n],j+1,k] == d:
-                    number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k]
+                #trying to get rid of out of bounds index error:
+                if number_of_cars[x[n],j,k] == number_of_cars[x[n],14,k]:
+                    number_of_cars[x[n],j+1,k] == number_of_cars[x[n],0,k]
                 else:
-                    if number_of_cars[x[n],j+1,k] > 0 and number_of_cars[x[n],j+1,k] < d:
-                        if (number_of_cars[x[n],j,k]) + (number_of_cars[x[n],j,k]) <= d:
-                            number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k]
-                            number_of_cars[x[n],j,k] = 0
-                        else:
-                            enroute = 0
-                            enroute = (d - number_of_cars[x[n],j+1,k])
-                            number_of_cars[x[n],j+1,k] += enroute
-                            number_of_cars[x[n],j,k] -= enroute
+
+                    #here's our move conditions. 0 and d are the boundaries
+                    #so we take care of them first. 
+                    #then our main else statement is about how to sum remainders
+                    #without breaking rules. I randomly named it 'enroute'
+                    if number_of_cars[x[n],j+1,k] == 0:
+                        number_of_cars[x[n],j+1,k] = number_of_cars[x[n],j,k]
+                        number_of_cars[x[n],j,k] = 0
+                    if number_of_cars[x[n],j+1,k] == d:
+                        number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k]
+                    else:
+                        if number_of_cars[x[n],j+1,k] > 0 and number_of_cars[x[n],j+1,k] < d:
+                            if (number_of_cars[x[n],j,k]) + (number_of_cars[x[n],j,k]) <= d:
+                                number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k]
+                                number_of_cars[x[n],j,k] = 0
+                            else:
+                                enroute = 0
+                                enroute = (d - number_of_cars[x[n],j+1,k])
+                                number_of_cars[x[n],j+1,k] += enroute
+                                number_of_cars[x[n],j,k] -= enroute
     return number_of_cars
+    
+    
     
 beep = simulation()
 print("beep", beep)
