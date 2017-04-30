@@ -10,7 +10,7 @@ def road(grid):
             vert.append(j)
     return hor, vert
     
-def initial_grid(d = 4):
+def initial_grid(dmin = 0, dmax = 20):
     
     grid = np.genfromtxt('roadmap.csv',delimiter =',')
     car_position = np.zeros((len(grid),len(grid),4))
@@ -23,10 +23,10 @@ def initial_grid(d = 4):
         else:
             for n in range(len(x)):
                 for j in range(len(grid)):
-                    car_position[x[n],j,0] = random.randint(0,d)
-                    car_position[x[n],j,1] = random.randint(0,d)
+                    car_position[x[n],j,0] = random.randint(dmin,dmax)
+                    car_position[x[n],j,1] = random.randint(dmin,dmax)
             for m in range(len(y)):
                 for i in range(len(grid)):
-                    car_position[i,y[m],3] = random.randint(0,d)
-                    car_position[i,y[m],2] = random.randint(0,d)
+                    car_position[i,y[m],3] = random.randint(dmin,dmax)
+                    car_position[i,y[m],2] = random.randint(dmin,dmax)
     return car_position
