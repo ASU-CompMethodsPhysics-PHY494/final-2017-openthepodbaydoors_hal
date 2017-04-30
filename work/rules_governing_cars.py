@@ -54,107 +54,82 @@ def initial_grid(d = 4):
     
 
 d = 4
-
-def car_loop_x( point, point_max_value, i ):
-    
-    #attempt at making function that moves car values no further than
-    #grid size and loops around to zero when at edge
-    x,y = road(grid)
-    number_of_cars = initial_grid()    
-    for n in number_of_cars[i]:
-        if number_of_cars[i] == 15:
-            return number_of_cars[0]
-    return number_of_cars 
-"""
-def east_movement(starting_step, next_step):
-    #taking care of the movement problem
-    #should take initial placement func and spit out step moves
-    x,y = road(grid)
-    print("x", x)
-    print("y", y)
-    number_of_cars = initial_grid()
-    print("number of cars", number_of_cars)
-    for n in range(len(x)):
-            print("len(x)", len(x))
-            for j in range(len(grid)):
-                print("len(grid)", len(grid))
-                starting_step = number_of_cars[x[n],j,k]
-                if number_of_cars[x[n],j+1,k] < d:
-                    starting_step = d-number_of_cars[x[n],j+1,k]
-                    number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k] 
-                    number_of_cars[x[n],j,k] = 0
-                else:
-                    number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k] + (number_of_cars[x[n],j+1,k]-d)
-                    number_of_cars[x[n],j+1,k] = d
-    return number_of_cars
-    
-    
-    for i in number_of_cars[i,j,k]:
-        starting_step = initial_grid()
-        next_step_east = starting_step[i+1,j,k,1]
-    return next_step_east
-"""
-    
-"""    
-def north_movement(starting_step, next_step):
-    #taking care of the movement problem
-    #should take initial placement func and spit out step moves
-    for i in car_position[i,j,1]:
-        starting_step = initial_grid()
-    return next_step_north    
-    
-def south_movement(starting_step, next_step):
-    #taking care of the movement problem
-    #should take initial placement func and spit out step moves
-    for i in car_position[i,j,2]:
-        starting_step = initial_grid()
-    return next_step_south
-
-def west_movement(starting_step, next_step):
-    #taking care of the movement problem
-    #should take initial placement func and spit out step moves
-    for i in car_position[i,j,3]:
-        starting_step = initial_grid()
-    return next_step_west
-"""    
 x,y = road(grid)
 number_of_cars = initial_grid()    
 
-def simulation():
+def is_intersection(grid,i,j):
+    #top = grid[i,j+1] == 1
+    #bottom = grid[i, j-1] == 1
+    #left = grid[i-1,j] == 1
+    #right = grid[i+1,j] == 1
+    if j == 0:
+        top = grid[i,-1] == 1
+    else:
+        top = grid[i,j-1] == 1
+    if j == (grid.shape[1]-1):
+        bottom = grid[i,0] == 1
+    else:
+        bottom = grid[i, j+1] == 1
+    if i == 0:
+        left = grid[-1,j] == 1
+    else:
+        left = grid[i-1,j] == 1
+    if i == (grid.shape[1]-1):
+        right = grid[0,j] == 1
+    else:
+        right = grid[i+1,j] == 1
+    return top and bottom and left and right
+
+    
+def intersection_rules():
+    #trying to make rules separate for intersections that we can
+    #slip into simlulation functions below
+    for is_intersection() == True:
+        total_d = d * 2
+        
+        
+    
+    return 
+
+def simulation_east(Nsteps=50):
     #attempt at simulating movement of our cars outside intersections
     #have conditions that I think will work moves even if we change d. 
-    for k in range(3):
+    for k in range(Nsteps):
         for n in range(len(x)):
-            print("len(x)", len(x))
+            #print("len(x)", len(x))
             for j in range(len(grid)):
-                print("len(grid)", len(grid))
+                #print("len(grid)", len(grid))
                 #trying to get rid of out of bounds index error:
-                if number_of_cars[x[n],j,k] == number_of_cars[x[n],14,k]:
-                    number_of_cars[x[n],j+1,k] == number_of_cars[x[n],0,k]
-                else:
-
-                    #here's our move conditions. 0 and d are the boundaries
-                    #so we take care of them first. 
-                    #then our main else statement is about how to sum remainders
-                    #without breaking rules. I randomly named it 'enroute'
-                    if number_of_cars[x[n],j+1,k] == 0:
-                        number_of_cars[x[n],j+1,k] = number_of_cars[x[n],j,k]
-                        number_of_cars[x[n],j,k] = 0
-                    if number_of_cars[x[n],j+1,k] == d:
-                        number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k]
+                intersection_test(number_of_cars[x[n],j+1,k])
+                if intersection_test(number_of_cars[x[n],j+1,k]) == False:
+                    if number_of_cars[x[n],j,k] == number_of_cars[x[n],14,k]:
+                        number_of_cars[x[n],j+1,k] == number_of_cars[x[n],0,k]
                     else:
-                        if number_of_cars[x[n],j+1,k] > 0 and number_of_cars[x[n],j+1,k] < d:
-                            if (number_of_cars[x[n],j,k]) + (number_of_cars[x[n],j,k]) <= d:
-                                number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k]
-                                number_of_cars[x[n],j,k] = 0
-                            else:
-                                enroute = 0
-                                enroute = (d - number_of_cars[x[n],j+1,k])
-                                number_of_cars[x[n],j+1,k] += enroute
-                                number_of_cars[x[n],j,k] -= enroute
+
+                        #here's our move conditions. 0 and d are the boundaries
+                        #so we take care of them first. 
+                        #then our main else statement is about how to sum remainders
+                        #without breaking rules. 
+                        if number_of_cars[x[n],j+1,k] == 0:
+                            number_of_cars[x[n],j+1,k] = number_of_cars[x[n],j,k]
+                            number_of_cars[x[n],j,k] = 0
+                        if number_of_cars[x[n],j+1,k] == d:
+                            number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k]
+                        else:
+                            if number_of_cars[x[n],j+1,k] > 0 and number_of_cars[x[n],j+1,k] < d:
+                                if (number_of_cars[x[n],j,k]) + (number_of_cars[x[n],j,k]) <= d:
+                                    number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k]
+                                    number_of_cars[x[n],j,k] = 0
+                                else:
+                                    enroute = 0
+                                    enroute = (d - number_of_cars[x[n],j+1,k])
+                                    number_of_cars[x[n],j+1,k] += enroute
+                                    number_of_cars[x[n],j,k] -= enroute
+                if intersection_test(number_of_cars[x[n],j+1,k]) == True:
+                    
     return number_of_cars
+
+
     
-    
-    
-beep = simulation()
+beep = simulation(50)
 print("beep", beep)
