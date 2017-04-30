@@ -81,15 +81,18 @@ def is_intersection(grid,i,j):
     return top and bottom and left and right
 
     
-def intersection_rules():
+def intersection_rule():
     #trying to make rules separate for intersections that we can
     #slip into simlulation functions below
-    for is_intersection() == True:
-        total_d = d * 2
+    if is_intersection() == True:
+        d = d * 2
+    else:
+        d = d
+    return d    
         
+
         
-    
-    return 
+     
 
 def simulation_east(Nsteps=50):
     #attempt at simulating movement of our cars outside intersections
@@ -98,16 +101,13 @@ def simulation_east(Nsteps=50):
         for n in range(len(x)):
             #print("len(x)", len(x))
             for j in range(len(grid)):
-                #print("len(grid)", len(grid))
-                #trying to get rid of out of bounds index error:
-                intersection_test(number_of_cars[x[n],j+1,k])
-                if intersection_test(number_of_cars[x[n],j+1,k]) == False:
+                #checking for intersection
+                if is_intersection(number_of_cars[x[n],j+1,k]) == False:
+                    #trying to get rid of out of bounds index error/wrapping our array:
                     if number_of_cars[x[n],j,k] == number_of_cars[x[n],14,k]:
                         number_of_cars[x[n],j+1,k] == number_of_cars[x[n],0,k]
                     else:
-
-                        #here's our move conditions. 0 and d are the boundaries
-                        #so we take care of them first. 
+                        #here's our main move conditions. 0 and d are the boundaries
                         #then our main else statement is about how to sum remainders
                         #without breaking rules. 
                         if number_of_cars[x[n],j+1,k] == 0:
@@ -116,6 +116,9 @@ def simulation_east(Nsteps=50):
                         if number_of_cars[x[n],j+1,k] == d:
                             number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k]
                         else:
+                            #if number of cars anywhere inbetween bounds, then we either
+                            #move all of cars from current spot to next spot
+                            #or in the else below, we move a partition that can fit, given d
                             if number_of_cars[x[n],j+1,k] > 0 and number_of_cars[x[n],j+1,k] < d:
                                 if (number_of_cars[x[n],j,k]) + (number_of_cars[x[n],j,k]) <= d:
                                     number_of_cars[x[n],j+1,k] += number_of_cars[x[n],j,k]
@@ -125,8 +128,13 @@ def simulation_east(Nsteps=50):
                                     enroute = (d - number_of_cars[x[n],j+1,k])
                                     number_of_cars[x[n],j+1,k] += enroute
                                     number_of_cars[x[n],j,k] -= enroute
-                if intersection_test(number_of_cars[x[n],j+1,k]) == True:
-                    
+                else:
+                    #since our array will never have intersection at a beginning or ending index
+                    #first,confirm there is space beyond intersection, otherwise, no need to check intersection 
+                    if number_of_cars[x[n],j+2,k] == d:
+                        number_of_cars[x[n],j,k] = number_of_cars[x[n],j,k]
+                    if number_of_cars[x[n],j+2,k] < d:
+                        
     return number_of_cars
 
 
