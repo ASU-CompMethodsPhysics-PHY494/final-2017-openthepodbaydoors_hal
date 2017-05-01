@@ -9,6 +9,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+
+
+
+
+
 def road(grid):
     x , y = grid.shape
     hor = []
@@ -84,7 +89,7 @@ def motion(carmap, lim=5):
                 new = n[k] + tuple([dir_[k]])
                 new2 = n[new[i,j,k]]
                 if not cm[current] == 0:
-                    #if is_intersection = False:
+                    if is_intersection == False:
                         if cm[new]== 0:
                             new_m[new] = cm[current]
                             new_m[current] = 0
@@ -100,11 +105,11 @@ def motion(carmap, lim=5):
                                 enroute = (lim - cm[new])
                                 new_m[new] += enroute
                                 new_m[current] -= enroute
-                    #else:
-                        #new2 = new+1
-                        #lim_intersection =  lim * 4 // 2
+                    else:
+                        lim_inton =  lim * 4 // 2
+                        for 
                         if cm[new2] == lim:
-                            cm[current] = cm[current]
+                            new_m[current] = cm[current]
                         if cm[new2] < lim:
                             #north plus south plus east
                             spot_check = [number_of_cars[x[n],j-2,1], number_of_cars[i,y[m],2], number_of_cars[i+2,y[m],3]]
@@ -117,12 +122,12 @@ def motion(carmap, lim=5):
                                         cm[current] = 0
                                     else:
                                         enroute2 = 0
-                                        enroute2 = (lim - number_of_cars[x[n],j+2,k])
-                                        number_of_cars[x[n],j+2,k] += enroute2
-                                        number_of_cars[x[n],j,k] -= enroute2
+                                        enroute2 = (lim - cm[new2)
+                                        cm[new2] += enroute2
+                                        cm[current] -= enroute2
                                 else: 
-                                    take_turns(number_of_cars[x[n],j,k])
-                                    number_of_cars[x[n],j+2,k]
+                                    take_turns(cm[current])
+                                    cm[new2]
     return new_m
   
     
