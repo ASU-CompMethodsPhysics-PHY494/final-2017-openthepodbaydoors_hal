@@ -1,3 +1,6 @@
+import numpy as np
+import random
+
 def road(grid):
     x , y = grid.shape
     hor = []
