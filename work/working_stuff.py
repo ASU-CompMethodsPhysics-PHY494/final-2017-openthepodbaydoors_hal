@@ -9,6 +9,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 
+
+
+
+
+
 def road(grid):
     x , y = grid.shape
     hor = []
@@ -82,23 +87,47 @@ def motion(carmap, lim=5):
             for k in dir_:
                 current = (i,j, dir_[k])
                 new = n[k] + tuple([dir_[k]])
+                new2 = n[new[i,j,k]]
                 if not cm[current] == 0:
-                    if cm[new]==0:
-                        new_m[new] = cm[current]
-                        new_m[current] = 0
-                    if cm[new] == lim:
-                        new_m[current] = cm[current]
-                    else:
-                        if cm[new] > 0 and cm[new] < lim:
-                            if cm[current] + cm[new] <= lim:
-                                new_m[new] += cm[current]
-                                new_m[current] = 0
+                    if is_intersection == False:
+                        if cm[new]== 0:
+                            new_m[new] = cm[current]
+                            new_m[current] = 0
+                        if cm[new] == lim:
+                            new_m[current] = cm[current]
                         else:
-                            enroute = 0
-                            enroute = (lim - cm[new])
-                            new_m[new] += enroute
-                            new_m[current] -= enroute
-
+                            if cm[new] > 0 and cm[new] < lim:
+                                if cm[current] + cm[new] <= lim:
+                                    new_m[new] += cm[current]
+                                    new_m[current] = 0
+                            else:
+                                enroute = 0
+                                enroute = (lim - cm[new])
+                                new_m[new] += enroute
+                                new_m[current] -= enroute
+                    else:
+                        lim_inton =  lim * 4 // 2
+                        for 
+                        if cm[new2] == lim:
+                            new_m[current] = cm[current]
+                        if cm[new2] < lim:
+                            #north plus south plus east
+                            spot_check = [number_of_cars[x[n],j-2,1], number_of_cars[i,y[m],2], number_of_cars[i+2,y[m],3]]
+                            for spot in spot_check:
+                                count = 0
+                                count = count + spot 
+                                if count + cm[current] <= lim_intersection:
+                                    if cm[current] + cm[new2] <= lim:
+                                        cm[new2] += cm[current]
+                                        cm[current] = 0
+                                    else:
+                                        enroute2 = 0
+                                        enroute2 = (lim - cm[new2)
+                                        cm[new2] += enroute2
+                                        cm[current] -= enroute2
+                                else: 
+                                    take_turns(cm[current])
+                                    cm[new2]
     return new_m
   
     
@@ -117,16 +146,33 @@ def plot(carmap, view=[]):
     plt.colorbar()
     
 plot(carmap)
+plt.show()
+
+#for t in range(1):
+#    grid = motion(carmap, lim=10)
+#plot(grid)
+
+
+#for t in range(5):
+#    grid = motion(carmap, lim=10)
+#plot(grid)
 
 for t in range(1):
     grid = motion(carmap, lim=10)
-plot(grid)
+    plot(grid)
 
-for t in range(5):
+for t in range(25, 5):
     grid = motion(carmap, lim=10)
-plot(grid)
+    plot(grid)
 
-for t in range(100):
+
+for t in range(25, 5):
     grid = motion(carmap, lim=10)
-plot(grid)
+    plot(grid)
+    
 
+for t in range(25, 5):
+    grid = motion(carmap, lim=10)
+    plot(grid)
+
+plt.show()
