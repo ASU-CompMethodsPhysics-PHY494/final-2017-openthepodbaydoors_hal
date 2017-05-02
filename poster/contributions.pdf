@@ -1,0 +1,24 @@
+Contributions:n
+
+Brian Horne 
+- Wrote code to read csv file, which we used as the road
+- Wrote code which populates the roads with random numbers of cars going in specific directions
+- Worked on incorporating rules for intersections
+- Helped keep team on track by communicating clearly and making sure tasks were divided fairly evenly
+- Helped with debugging / testing
+
+Alex Smith:
+- Wrote Proposal
+- Helped in developement/ decision of what rules to impliment for cars
+- Helped write code to get cars moving without rules for intersections 
+- Worked on incorporating rules for intersections
+- Helped with debugging / testing
+- Communicated well and kept team members up-to-date on progress
+
+Caleb Madsen:
+- Wrote code to find intersections given the road
+- Wrote code to find neighboring locations of positions on the road
+- Wrote code to plot traffic density at different time-steps
+- Helped write code to get cars moving without rules for intersections 
+- Worked on incorperating intersections 
+- Helped with debugging / testing 
