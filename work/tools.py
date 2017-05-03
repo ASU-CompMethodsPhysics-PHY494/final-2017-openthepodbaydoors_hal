@@ -76,14 +76,20 @@ def neighbors(carmap, i, j):
         y = i
     """
     directions = {'n':(i-1,j), 'e':(i,j+1), 'w':(i,j-1), 's':(i+1,j)}
-    if i == 0:
-        directions['n'] = (i, carmap.shape[0]-1)
-    if i == carmap.shape[0]-1:
-        directions['s'] = (0,j)
-    if j == 0:
-        directions['w'] = (i,carmap.shape[1]-1)
-    if j == carmap.shape[0]-1:
-        directions['e'] = (i,0)
+    if i <= carmap.shape[0]:
+        if i == 0:
+            directions['n'] = (i, carmap.shape[0]-1)
+        if i >= carmap.shape[0]-1:
+            directions['s'] = (0,j)
+    else:
+        raise ValueError('i is too big!')
+    if j <= carmap.shape[1]:
+        if j == 0:
+            directions['w'] = (i,carmap.shape[1]-1)
+        if j == carmap.shape[0]-1:
+            directions['e'] = (i,0)
+    else:
+        raise ValueError('j is too big!')
     return directions
 
 """find neighbors of intersections"""    
