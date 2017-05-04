@@ -7,9 +7,9 @@ Lower lim: least number of cars allowed in position (should be greater than zero
 upper lim: most numbers of cars allowed initially in a position
 maxtime: total number of iterations
 will return three objects:
--initial number of cars in each position on the street
--final number of cars in each position on the street after iterations
--list of cars that went through the intersection in each iteration
+- initial number of cars in each position on the street
+- final number of cars in each position on the street after iterations
+- list of cars that went through the intersection in each iteration
 
 The code is not operating as expected however the initial grid setup works and the simulation updates the positions.
 
