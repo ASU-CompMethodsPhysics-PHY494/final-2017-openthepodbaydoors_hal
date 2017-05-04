@@ -39,6 +39,7 @@ def initial_grid(dmin = 5, dmax = 10):
             #for q in range(2):
             car_position[x[n],j,0] = random.randint(dmin,dmax) #north
                 #car_position[x[n],j,1] = random.randint(dmin,dmax)
+    
     for n in range(len(x)):
         for j in range(len(grid)):
             #for q in range(2):
@@ -54,6 +55,7 @@ def initial_grid(dmin = 5, dmax = 10):
             car_position[i,y[m],3] = random.randint(dmin,dmax) #west
     #print(car_position)
     return car_position
+carmap = initial_grid()
 
     
 
@@ -131,7 +133,7 @@ dir_ = {'n': 2,
         'w': 1}
         
 """get cars moving"""
-
+print()
 def motion(carmap, lim=20):
     cm = carmap
     new_m = np.zeros_like(cm)
@@ -146,21 +148,16 @@ def motion(carmap, lim=20):
                 #print("new", new)
                 if not cm[current] == 0:
                     cars = cm[current]
-                    newsies = cm[new]
-                    print("cars", cars)
-                    
                     if cm[new] < lim:
                         move = lim - cars 
                         res = lim - cm[new] - move
+                        cm[current] = res
+                        new_m[current] = cm[current]
+                        cm[new] += move
+                        new_m[new] = cm[new]
                         if res < 0:
                             new_m[current] -= lim - move
                             new_m[new] += lim - move
-                    print("new", newsies)
-    return new_m 
-    
-el = motion(carmap, 20)
-print(el)    
-"""
                     if cm[new] == 0:
                         new_m[new] = cm[current]
                         new_m[current] = 0
@@ -176,8 +173,9 @@ print(el)
                             enroute = (lim - cm[new])
                             new_m[new] += enroute
                             new_m[current] -= enroute
-"""                    
+    return new_m 
     
+
 
 """Plot 'heatmap' of cars"""
 
@@ -197,13 +195,13 @@ def plot(grid, view=[]):
     plt.colorbar()
 
     
-#plot(carmap)
-#plt.show()    
+plot(carmap)
+plt.show()    
 
 
-#for t in range(3):
-#    carmap = motion(carmap,20)
-#    print("carmap", carmap[4,:,0])
+for t in range(3):
+    carmap = motion(carmap,20)
+    print("carmap", carmap[4,:,0])
     
 """
 plot(carmap)
